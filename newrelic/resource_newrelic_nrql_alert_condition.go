@@ -79,9 +79,8 @@ func resourceNewRelicNrqlAlertCondition() *schema.Resource {
 							ValidateFunc: validation.StringInSlice([]string{"critical", "warning"}, false),
 						},
 						"threshold": {
-							Type:         schema.TypeFloat,
+							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: float64Gte(0.0),
 						},
 						"time_function": {
 							Type:         schema.TypeString,
@@ -114,7 +113,7 @@ func buildNrqlAlertConditionStruct(d *schema.ResourceData) *newrelic.AlertNrqlCo
 			Duration:     termM["duration"].(int),
 			Operator:     termM["operator"].(string),
 			Priority:     termM["priority"].(string),
-			Threshold:    termM["threshold"].(float64),
+			Threshold:    termM["threshold"].(string),
 			TimeFunction: termM["time_function"].(string),
 		}
 	}
